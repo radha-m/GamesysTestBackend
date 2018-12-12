@@ -1,14 +1,11 @@
 package Steps;
 
-import com.google.gson.reflect.TypeToken;
-import com.processor.Streams;
+
+import com.model.GetBingoLobbyFeed;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.restassured.internal.http.ContentEncoding;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.ResponseBody;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +14,11 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import utils.readPropConfig;
-import java.util.List;
+
 
 
 import com.google.gson.Gson;
 import com.model.Stream;
-import com.model.BingoLobbyInfoResource;
 
 
 /**
@@ -77,36 +73,70 @@ public class getBingoLobbyFeed {
 
     @Then("^defaultGameFrequency should be (\\d+)$")
     public void checkDefaultgamefrequency(int arg1) throws Throwable {
-
         getStreams(responseBody);
-
-
     }
 
     @Then("^startTime should be future timestamp$")
     public void validateStarttime() throws Throwable {
-
+        getStreamsStartTime(responseBody);
     }
 
-
+// Parsing and Validation of DefaultGameFrequency
     private void getStreams(String responseBody){
-        String json = null;
         Gson gson = new Gson();
+        GetBingoLobbyFeed bingoFeed = gson.fromJson(responseBody,GetBingoLobbyFeed.class);
 
-
-        //Streams streams = gson.fromJson(responseBody,Streams.class);
-        BingoLobbyInfoResource bingo = gson.fromJson(responseBody,BingoLobbyInfoResource.class);
-
-        if (bingo != null){
-            for (Stream st : bingo.getStreams()){
-                logger.info("DefaultGameFrequency on array = " + st.getStreamName() + ",         Start time = " + st.getStartTime());
+        if (bingoFeed != null){
+            for (Stream st : bingoFeed.getBingoLobbyInfoResource().getStreams())
+            {
+                logger.info("DefaultGameFrequency on Stream = " + st.getDefaultGameFrequency());
+                    if (st.getDefaultGameFrequency() != 300000) {
+                        logger.info("One of DefaultGameFrequency do not have the expected default value of 300000 ");
+                        Assert.fail("One of DefaultGameFrequency do not have the expected default value of 300000 ");
+                    }else{
+                        Assert.assertTrue(" DefaultGameFrequency have the expected default value of 300000 ", true);
+                        logger.info("DefaultGameFrequency have the expected default value of 300000  ");
+                    }
+                }
             }
-
         }
-//        return new String[]{
-//          "DefaultGameFrequency : " +  streams.getDefaultGameFrequency(),
-//                  "StartTime :" + streams.getStartTime()
-//        };
 
+    // Parsing of timeStamp
+    private Long getTimeStamp(String responseBody){
+        Long timeStmp = null;
+        Gson gson = new Gson();
+        GetBingoLobbyFeed bingoFeed = gson.fromJson(responseBody,GetBingoLobbyFeed.class);
+
+        if (bingoFeed != null) {
+            timeStmp = bingoFeed.getTimestamp();
+            logger.info("TimeStamp is = " + timeStmp);
+        }else{
+            logger.info("TimeStamp is not available");
+            Assert.fail("TimeStamp is not available");
+        }
+        return  timeStmp;
     }
+
+
+    // Parsing and Validation of StartTime
+    private void getStreamsStartTime(String responseBody){
+        Long optainTimeStamp = getTimeStamp(responseBody);
+        Gson gson = new Gson();
+        GetBingoLobbyFeed bingoFeed = gson.fromJson(responseBody,GetBingoLobbyFeed.class);
+
+        if (bingoFeed != null){
+            for (Stream st : bingoFeed.getBingoLobbyInfoResource().getStreams())
+            {
+                logger.info("StartTime on Stream = " + st.getStartTime());
+                if (st.getStartTime() < optainTimeStamp){
+                    logger.info("One of startTime is less than the current timestamp ");
+                    Assert.fail("One of startTime is less than the current timestamp");
+                }else{
+                    Assert.assertTrue("Streams startTime is future timestamp", true);
+                    logger.info("Streams startTime is future timestamp");
+                }
+            }
+        }
+    }
+
 }

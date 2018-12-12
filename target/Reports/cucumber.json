@@ -1,0 +1,100 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "line": 5,
+        "name": "Verify default values for GetBingoLobbyFeed API",
+        "description": "",
+        "id": "validate-getbingolobbyfeed-api-and-default-values;verify-default-values-for-getbingolobbyfeed-api",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 2106549240,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "I have GetBingoLobbyFeed API",
+            "match": {
+              "location": "getBingoLobbyFeed.setup()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 2182932998,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "I made API http request",
+            "match": {
+              "location": "getBingoLobbyFeed.GetBingoLobbyFeed()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 2206825,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "HTTPReponse status code should be successful",
+            "match": {
+              "location": "getBingoLobbyFeed.checkHttpStatusCode()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 146488987,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "defaultGameFrequency should be 300000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "300000",
+                  "offset": 31
+                }
+              ],
+              "location": "getBingoLobbyFeed.checkDefaultgamefrequency(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 9921632,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "startTime should be future timestamp",
+            "match": {
+              "location": "getBingoLobbyFeed.validateStarttime()"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@ValideSuccessResponse"
+          }
+        ]
+      }
+    ],
+    "name": "Validate GetBingoLobbyFeed API and default values",
+    "description": "",
+    "id": "validate-getbingolobbyfeed-api-and-default-values",
+    "keyword": "Feature",
+    "uri": "GetBingoLobbyFeed.feature",
+    "tags": [
+      {
+        "line": 1,
+        "name": "@ValidateGetBingoLobbyFeed"
+      }
+    ]
+  }
+]

@@ -55,21 +55,21 @@ formatter.match({
   "location": "getBingoLobbyFeed.setup()"
 });
 formatter.result({
-  "duration": 1010164090,
+  "duration": 2106549240,
   "status": "passed"
 });
 formatter.match({
   "location": "getBingoLobbyFeed.GetBingoLobbyFeed()"
 });
 formatter.result({
-  "duration": 2113586018,
+  "duration": 2182932998,
   "status": "passed"
 });
 formatter.match({
   "location": "getBingoLobbyFeed.checkHttpStatusCode()"
 });
 formatter.result({
-  "duration": 10429889,
+  "duration": 2206825,
   "status": "passed"
 });
 formatter.match({
@@ -80,4 +80,16 @@ formatter.match({
     }
   ],
   "location": "getBingoLobbyFeed.checkDefaultgamefrequency(int)"
+});
+formatter.result({
+  "duration": 146488987,
+  "status": "passed"
+});
+formatter.match({
+  "location": "getBingoLobbyFeed.validateStarttime()"
+});
+formatter.result({
+  "duration": 9921632,
+  "status": "passed"
+});
 });

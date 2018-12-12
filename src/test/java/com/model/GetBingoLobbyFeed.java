@@ -8,16 +8,16 @@ public class GetBingoLobbyFeed {
 
     @SerializedName("timestamp")
     @Expose
-    private Integer timestamp;
+    private Long timestamp;
     @SerializedName("bingoLobbyInfoResource")
     @Expose
     private BingoLobbyInfoResource bingoLobbyInfoResource;
 
-    public Integer getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

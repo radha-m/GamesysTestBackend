@@ -8,7 +8,7 @@ public class Stream {
 
     @SerializedName("gameRef")
     @Expose
-    private Integer gameRef;
+    private Long gameRef;
     @SerializedName("streamId")
     @Expose
     private Integer streamId;
@@ -20,7 +20,7 @@ public class Stream {
     private Boolean streamClosure;
     @SerializedName("startTime")
     @Expose
-    private Integer startTime;
+    private Long startTime;
     @SerializedName("superJackpot")
     @Expose
     private SuperJackpot superJackpot;
@@ -58,11 +58,11 @@ public class Stream {
     @Expose
     private Boolean linkGame;
 
-    public Integer getGameRef() {
+    public Long getGameRef() {
         return gameRef;
     }
 
-    public void setGameRef(Integer gameRef) {
+    public void setGameRef(Long gameRef) {
         this.gameRef = gameRef;
     }
 
@@ -90,11 +90,11 @@ public class Stream {
         this.streamClosure = streamClosure;
     }
 
-    public Integer getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
